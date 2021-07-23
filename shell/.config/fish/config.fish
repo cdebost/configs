@@ -1,3 +1,6 @@
+abbr -a e nvim
+abbr -a vim nvim
+abbr -a VundleCtl env SHELL=(which sh) nvim +PluginInstall +PluginClean +PluginUpdate +qall
 abbr -a g git
 abbr -a n node
 abbr -a py python3
