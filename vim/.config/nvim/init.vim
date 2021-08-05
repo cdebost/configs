@@ -14,14 +14,14 @@ Plugin 'morhetz/gruvbox' " Theme
 
 " Semantic language support
 Plugin 'neovim/nvim-lspconfig'
-Plugin 'nvim-lua/lsp_extensions.nvim'
-Plugin 'nvim-lua/completion-nvim'
+Plugin 'nvim-lua/lsp_extensions.nvim' " Extra support for rust
+Plugin 'hrsh7th/nvim-compe' " Autocompletion
+Plugin 'folke/lsp-colors.nvim' " Add missing colors for diagnostics
 
 Plugin 'itchyny/lightline.vim' " Bottom status bar
 Plugin 'scrooloose/nerdtree' " file browser
 
 Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'kien/ctrlp.vim'
 
 " Language support
@@ -63,9 +63,6 @@ map <leader>h :bprevious<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
 map <C-n> :NERDTreeToggle<CR>
@@ -117,7 +114,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -131,6 +127,64 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+EOF
+
+" ======================================
+" Autocompletion
+" ======================================
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+set cmdheight=2
+set updatetime=300
+
+lua << EOF
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = "single",
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
 EOF
 
 " ======================================
