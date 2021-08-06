@@ -29,9 +29,7 @@ Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
 " Language support
-Plugin 'stephy/vim-yaml'
 Plugin 'pangloss/vim-javascript'
-Plugin 'klen/python-mode'
 Plugin 'dag/vim-fish'
 Plugin 'plasticboy/vim-markdown'
 
