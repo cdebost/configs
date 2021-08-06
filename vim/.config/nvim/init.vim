@@ -17,6 +17,7 @@ Plugin 'neovim/nvim-lspconfig'
 Plugin 'nvim-lua/lsp_extensions.nvim' " Extra support for rust
 Plugin 'hrsh7th/nvim-compe' " Autocompletion
 Plugin 'folke/lsp-colors.nvim' " Add missing colors for diagnostics
+Plugin 'ray-x/lsp_signature.nvim' " Signature help while typing
 
 Plugin 'itchyny/lightline.vim' " Bottom status bar
 Plugin 'scrooloose/nerdtree' " file browser
@@ -135,6 +136,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
+
+require('lsp_signature').setup()
 EOF
 
 " ======================================
