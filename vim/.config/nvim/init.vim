@@ -23,7 +23,10 @@ Plugin 'itchyny/lightline.vim' " Bottom status bar
 Plugin 'scrooloose/nerdtree' " file browser
 
 Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'kien/ctrlp.vim'
+
+" Fuzzy finder
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 
 " Language support
 Plugin 'stephy/vim-yaml'
@@ -67,6 +70,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
 map <C-n> :NERDTreeToggle<CR>
+
+" search
+map <leader>s :Rg<CR>
 
 " ======================================
 " Colors/Theming
