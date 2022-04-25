@@ -15,8 +15,11 @@ set autoread
 " like <leader><leader> saves the current file
 let mapleader = "\<Space>"
 
+" Swap between buffers
+nmap <leader><leader> <c-^>
+
 " Fast saving
-nmap <leader><leader> :w!<cr>
+nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
