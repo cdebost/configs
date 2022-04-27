@@ -1,15 +1,47 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=500
+" ======================================
+" Plugins
+" ======================================
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+if has('nvim')
+    if empty(glob('~/.config/nvim/autoload/plug.vim'))
+        silent !wget -P ~/.config/nvim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+else
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !wget -P ~/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+endif
 
-" Set to auto read when a file is changed from the outside
-set autoread
+call plug#begin()
+
+Plug 'morhetz/gruvbox' " Theme
+
+Plug 'editorconfig/editorconfig-vim' " Editorconfig support
+Plug 'plasticboy/vim-markdown' " Markdown support
+Plug 'octol/vim-cpp-enhanced-highlight'  " Better C++ highlighting
+
+Plug 'scrooloose/nerdtree' " File browser
+Plug 'itchyny/lightline.vim' " Bottom status bar
+
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'airblade/vim-gitgutter' " Git in the gutter
+
+" Plug 'Valloric/YouCompleteMe' " LSP integration
+
+call plug#end()
+
+" ======================================
+" Keybindings
+" ======================================
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
 
 " With a map leader it's possible to do extra key combinations
 " like <leader><leader> saves the current file
@@ -21,42 +53,70 @@ nmap <leader><leader> <c-^>
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Switch buffers
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
+map <C-n> :NERDTreeToggle<CR>
+
+map <leader>p :Files<cr>
+
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" ======================================
+" Colors/Theming
+" ======================================
+
+set t_Co=256 "Enable 256 colors palette
+set background=dark
+syntax on "Enable syntax highlighting
+
+autocmd vimenter * ++nested colorscheme gruvbox
+
+" ======================================
+" General
+" ======================================
+
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
-"Always show current position
-set ruler
+set ruler " Always show current position
+set hid " A buffer becomes hidden when it is abandoned
 
-" A buffer becomes hidden when it is abandoned
-set hid
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
+set ignorecase " Ignore case when searching
+set smartcase " When searching try to be smart about cases
+set hlsearch " Highlight search results
+set incsearch " Makes search act like search in modern browsers
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-" For regular expressions turn magic on
-set magic
+set magic " For regular expressions turn magic on
 
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
+set showmatch " Show matching brackets when text indicator is over them
+set mat=2 " How many tenths of a second to blink when matching brackets
 
 " No annoying sound on errors
 set noerrorbells
@@ -66,9 +126,6 @@ set tm=500
 
 " Enable syntax highlighting
 syntax enable
-
-" Enable 256 colors palette
-set t_Co=256
 
 set encoding=utf-8
 
@@ -101,18 +158,6 @@ set wrap "Wrap lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Switch buffers
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -151,37 +196,3 @@ au BufNewFile,BufRead *.yml,*.html,*.js
     \ set shiftwidth=2 |
     \ set autoindent |
     \ set expandtab
-
-let python_highlight_all=1
-syntax on
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" begin plugins
-
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'klen/python-mode'
-Plugin 'morhetz/gruvbox'
-
-" end plugin
-
-call vundle#end()
-
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
-map <C-n> :NERDTreeToggle<CR>
-
-autocmd vimenter * ++nested colorscheme gruvbox
-set background=dark
