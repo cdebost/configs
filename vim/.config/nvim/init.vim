@@ -4,36 +4,47 @@ set shell=/bin/bash
 " Plugins
 " ======================================
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+if has('nvim')
+    if empty(glob('~/.config/nvim/autoload/plug.vim'))
+        silent !wget -P ~/.config/nvim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+else
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !wget -P ~/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+endif
 
-Plugin 'morhetz/gruvbox' " Theme
+call plug#begin()
 
-" Semantic language support
-Plugin 'neovim/nvim-lspconfig'
-Plugin 'nvim-lua/lsp_extensions.nvim' " Extra support for rust
-Plugin 'hrsh7th/nvim-compe' " Autocompletion
-Plugin 'folke/lsp-colors.nvim' " Add missing colors for diagnostics
-Plugin 'ray-x/lsp_signature.nvim' " Signature help while typing
+Plug 'morhetz/gruvbox' " Theme
 
-Plugin 'itchyny/lightline.vim' " Bottom status bar
-Plugin 'scrooloose/nerdtree' " file browser
+Plug 'editorconfig/editorconfig-vim' " Editorconfig support
+Plug 'plasticboy/vim-markdown' " Markdown support
+Plug 'octol/vim-cpp-enhanced-highlight'  " Better C++ highlighting
 
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdtree' " File browser
+Plug 'itchyny/lightline.vim' " Bottom status bar
+
+Plug 'airblade/vim-gitgutter' " Git in the gutter
 
 " Fuzzy finder
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Semantic language support
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim' " Extra support for rust
+Plug 'hrsh7th/nvim-compe' " Autocompletion
+Plug 'folke/lsp-colors.nvim' " Add missing colors for diagnostics
+Plug 'ray-x/lsp_signature.nvim' " Signature help while typing
 
 " Language support
-Plugin 'pangloss/vim-javascript'
-Plugin 'dag/vim-fish'
-Plugin 'plasticboy/vim-markdown'
+Plug 'pangloss/vim-javascript'
+Plug 'dag/vim-fish'
 
-call vundle#end()
+call plug#end()
 
 " ======================================
 " Keybindings
