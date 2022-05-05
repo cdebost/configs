@@ -90,6 +90,11 @@ map <leader>s :Rg<CR>
 set t_Co=256 "Enable 256 colors palette
 set background=dark
 syntax on "Enable syntax highlighting
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 autocmd vimenter * ++nested colorscheme gruvbox
 
