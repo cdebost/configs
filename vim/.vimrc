@@ -87,6 +87,7 @@ endif
 set background=dark
 syntax on "Enable syntax highlighting
 
+let g:gruvbox_contrast_dark = 'hard'
 autocmd vimenter * ++nested colorscheme gruvbox
 
 " ======================================
