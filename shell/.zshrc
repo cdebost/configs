@@ -2,7 +2,11 @@
 # Aliases
 #
 
-alias e=nvim
+if which nvim &>/dev/null; then
+    alias e=nvim
+else
+    alias e=vim
+fi
 alias g=git
 alias gs='git status'
 alias gl='git log'
