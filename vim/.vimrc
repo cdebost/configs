@@ -16,7 +16,7 @@ endif
 
 call plug#begin()
 
-Plug 'morhetz/gruvbox' " Theme
+Plug 'chriskempson/base16-vim' " Theme
 
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
 Plug 'plasticboy/vim-markdown' " Markdown support
@@ -87,8 +87,13 @@ endif
 set background=dark
 syntax on "Enable syntax highlighting
 
-let g:gruvbox_contrast_dark = 'hard'
-autocmd vimenter * ++nested colorscheme gruvbox
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+
+" Make comments orange
+call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 
 " ======================================
 " General
