@@ -70,6 +70,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
 map <C-n> :NERDTreeToggle<CR>
 
 map <leader>p :Files<cr>
+map <leader>; :Buffers<cr>
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>

@@ -80,6 +80,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 let NERDTreeIgnore=['\.pyc$', '\~$', '^__pycache__$']
 map <C-n> :NERDTreeToggle<CR>
 
+map <leader>p :Files<cr>
+map <leader>; :Buffers<cr>
+
 " search
 map <leader>s :Rg<CR>
 
