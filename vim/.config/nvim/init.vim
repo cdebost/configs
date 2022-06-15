@@ -266,6 +266,17 @@ set nobackup
 set nowb
 set noswapfile
 
+set relativenumber " Relative line numbers
+set number " Also show current line number
+
+set mouse=a " Full mouse support
+
+" Change the look of the cursor in insert vs normal mode
+if !has('nvim')
+    let &t_SI = "\e[6 q"
+    let &t_EI = "\e[2 q"
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
