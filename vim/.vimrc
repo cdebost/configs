@@ -16,8 +16,6 @@ endif
 
 call plug#begin()
 
-Plug 'chriskempson/base16-vim' " Theme
-
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
 Plug 'plasticboy/vim-markdown' " Markdown support
 Plug 'octol/vim-cpp-enhanced-highlight'  " Better C++ highlighting
@@ -80,21 +78,9 @@ map <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " ======================================
 
 set t_Co=256 "Enable 256 colors palette
-if exists('+termguicolors')
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
 set background=dark
 syntax on "Enable syntax highlighting
-
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
-
-" Make comments orange
-call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+set termguicolors
 
 " ======================================
 " General
