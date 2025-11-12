@@ -8,3 +8,6 @@ vim.keymap.set("n", "<leader><leader>", "<c-^>")
 
 -- Toggle numbers
 vim.keymap.set("n", "<leader>nn", ":set number!<cr> :set relativenumber!<cr>")
+
+vim.keymap.set("n", "<leader>cd", ":cd %:p:h<cr>:pwd<cr>")
+vim.keymap.set("n", "<leader>s", ":Rg<cr>")
