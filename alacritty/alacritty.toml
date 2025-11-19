@@ -1,0 +1,8 @@
+[general]
+import = [
+ "~/.config/alacritty/gruvbox.toml"
+]
+
+[font]
+normal.family = "IosevkaTermSlab Nerd Font"
+normal.style = "Regular"
