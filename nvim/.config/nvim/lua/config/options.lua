@@ -1,6 +1,5 @@
 local opt = vim.opt
 
-opt.shell = "/bin/bash"
 opt.backspace = { "eol", "start", "indent" }
 opt.whichwrap:append("<,>,h,l")
 opt.termguicolors = true
@@ -42,9 +41,6 @@ opt.clipboard = "unnamed"
 opt.foldmethod = "indent"
 opt.foldlevel = 99
 opt.background = "dark"
-
-vim.g.NERDTreeIgnore = { [[\.pyc$]], [[\~$]], [[^__pycache__$]] }
-vim.g.python_highlight_all = 1
 
 vim.cmd([[
   syntax on
