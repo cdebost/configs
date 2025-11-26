@@ -19,28 +19,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup,
-  pattern = "*.py",
-  callback = function()
-    vim.bo.tabstop = 4
-    vim.bo.softtabstop = 4
-    vim.bo.shiftwidth = 4
-    vim.bo.textwidth = 79
-    vim.bo.expandtab = true
-    vim.bo.autoindent = true
-    vim.bo.fileformat = "unix"
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup,
-  pattern = { "*.yml", "*.html", "*.js" },
-  callback = function()
-    vim.bo.tabstop = 2
-    vim.bo.softtabstop = 2
-    vim.bo.shiftwidth = 2
-    vim.bo.autoindent = true
-    vim.bo.expandtab = true
-  end,
-})
